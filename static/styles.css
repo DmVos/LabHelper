@@ -1,0 +1,196 @@
+/*Фон основного окна*/
+body {
+  font-family: 'Agbalumo', sans-serif;
+  margin: 0;
+  padding: 0;
+  /* background-color: #C5BAA9; Updated background color */
+  color: #435768;
+  background-image: url("lab.png"); /* Replace 'path/to/your/image.jpg' with the actual path to your image file */
+  background-size: cover; /* Ensures the background image covers the entire viewport */
+  background-position: center; /* Centers the background image*/
+  background-repeat: no-repeat;
+}
+
+/* Полоска меню */
+.ul_menu_style {
+  list-style-type: none;
+  margin: 0; /* Updated margin */
+  padding: 3;
+  overflow: hidden;
+  background-color: #686C33; /* Updated background color */
+}
+
+/* Обертка основного контента */
+.container {
+  margin: 80px auto;
+  width: 60%;
+}
+
+/* Стиль заголовка */
+header {
+  background-color: #ecece5;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 130px;
+}
+
+/* Основной контент */
+.main-content { 
+  background-color: #ecece5;
+  margin: 30px auto;
+  padding:30px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  
+}
+
+/* Стиль списка основных особенностей */
+.feature-list {
+  list-style-type: disc;
+  margin: 10px;  /* Updated margin  */
+  /* padding: 20px; */
+  overflow: hidden;
+}
+
+/* Стиль ссылок в списке особенностей */
+.feature-list li {
+  color: #435768;
+  padding: 8px;
+}
+
+/* При наведении на ссылки */
+.feature-list li:hover {
+  color: #519dcf;
+}
+
+
+/* Цвет заголовка */
+h1 {
+  color: #686C33;
+  text-align: center;
+  padding: 10px;
+}
+
+/* Цвет заголовков абзацев */
+h2 {
+  color: #435768;
+  }
+
+/* Обертка стилей */
+.styled-div {
+  background-color: #ffffff;
+  margin: 20px auto;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 80%; /* Or any other width as per your requirement */
+}
+
+
+.ul_index_page_style {
+  list-style-type: disc;
+  margin: 200;
+  padding: 20;
+  overflow: hidden;
+}
+
+ul li { 
+  float: left;
+}
+
+ul li a {
+  display: block;
+  color: #0C151C;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/* Цвет фона, когда навели на кнопку меню */
+ul li a:hover {
+  background-color: #16354D;
+}
+
+/* Title Styling */
+h1 {
+  color: #0C151C;
+  text-align: center;
+  padding: 10px;
+}
+
+.styled-div {
+  background-color: #ffffff;
+  margin: 100px auto;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 80%; /* Or any other width as per your requirement */
+}
+
+
+
+form {
+  background-color: #ffffff;
+  margin: 100px auto;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 40%;
+}
+
+.form_for_adding_experiment{
+  background-color: #ffffff;
+  margin: 100px auto;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 80%;
+  display: flex;
+  justify-content: space-between; /* Распределение пространства между столбцами */
+}
+
+
+.form-column {
+  flex: 1; /* Каждый столбец занимает равное пространство */
+  margin-right: 20px; /* Отступ между столбцами */
+}
+
+.form-column:last-child {
+  margin-right: 0; /* Убираем отступ для последнего столбца */
+}
+
+
+/* Стиль для поля ввода  */
+input[type="text"], input[type="password"] {
+  width: 95%;
+  padding: 10px;
+  margin: 20px 0;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  
+}
+
+input[type="submit"] {
+  background-color: #6B99C3;
+  color: 333;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold
+}
+
+input[type="submit"]:hover {
+  background-color: #6B99C3;
+}
+
+.invalid {
+  border-color: #ff0000;
+}
+
+.error-message {
+  color: #ff0000;
+  font-size: 0.9em;
+}
