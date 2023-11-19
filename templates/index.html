@@ -1,0 +1,40 @@
+{% extends 'base.html'%}
+
+{% block content %}
+{{ super() }}
+
+
+    <head>
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+        <title>LabHelper - Home</title>
+    </head>
+    <body>
+        <div class="container">
+            <header>
+                <h1>Welcome to LabHelper</h1>
+            </header>
+            <section class="main-content">
+                <p>
+                    LabHelper is an application designed to precisely analyze and measure the area of corrosion from photographs taken after climatic tests.
+                </p>
+                <p>
+                    Our tool streamlines the process of corrosion analysis, making it faster, more accurate, and easily accessible.
+                </p>
+                
+                <h2>Key Features</h2>
+                <ul class="feature-list">
+                    <li><strong>Accurate Analysis:</strong> Utilize advanced algorithms to determine the area of corrosion with high precision.</li>
+                    <li><strong>User-Friendly Interface:</strong> Simple and intuitive design, enabling users to easily upload and analyze images.</li>
+                    <li><strong>Secure Access:</strong> Only authorized users can access the system, ensuring data confidentiality and integrity.</li>
+                </ul>
+                
+                <h2>Getting Started</h2>
+                <p>
+                    To begin using LabHelper, you must be an authorized user. If you already have a user login and password, please <a href="{{ url_for('login')}}">login</a>.
+                </p>
+            </section>
+        </div>
+    </body>
+
+
+{% endblock %}

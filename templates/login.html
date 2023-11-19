@@ -1,0 +1,42 @@
+{% extends 'base.html'%}
+
+{% block content %}
+{{ super() }}
+<div class="login-form">
+    {% for msg in get_flashed_messages(True) %}
+    <div class="flash-message">{{ msg }}</div>
+    {% endfor %}
+
+    <form action="/login" method="post">
+        {{ form.hidden_tag() }}
+
+        {% for field in form if field.name not in ['csrf_token', 'remember', 'submit'] %}
+            <div>
+                {{ field.label() }} 
+                {% if field.errors %}
+                    {{ field(class="invalid") }}
+                    <span class="error-message">
+                        {% for e in field.errors %}
+                        {{ e }}
+                        {% endfor %}
+                    </span>
+                {% else %}
+                    {{ field() }}
+                {% endif %}
+            </div>
+        {% endfor %}
+
+        <div>
+            <label>{{ form.remember.label()}}</label>
+            {{ form.remember() }}
+            <p>*If you've forgotten your username or password, please contact the helpdesk</p>
+        </div>
+
+        <div>
+            {{ form.submit(class="submit-button") }}
+        </div>
+    </form>
+    
+</div>
+
+{% endblock %}

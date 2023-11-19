@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{{ super() }}
+<hr>
+<h2>All experiments</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Start Date</th>
+            <th>Details</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for exp in experiments %}
+        <tr>
+            <td>{{ exp.title }}</td>
+            <td>{{ exp.start_date }}</td>
+            <td><a href="{{ url_for('showExperiment', id_exp=exp.id) }}">View Details</a></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

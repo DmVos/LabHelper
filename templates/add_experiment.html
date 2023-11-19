@@ -1,0 +1,46 @@
+{% extends 'base.html'%}
+
+{% block content %}
+{{ super() }}
+
+
+<script>
+    function previewImage() {
+        var preview = document.getElementById('imagePreview');
+        var file    = document.getElementById('imageInput').files[0];
+        var reader  = new FileReader();
+    
+        reader.onloadend = function () {
+            preview.src = reader.result;
+            preview.style.display = 'block';
+        }
+    
+        if (file) {
+            reader.readAsDataURL(file);
+        } else {
+            preview.src = "";
+            preview.style.display = 'none';
+        }
+    }
+</script>
+
+
+<form class="form_for_adding_experiment" action="{{url_for('addExperiment')}}" method="post" enctype="multipart/form-data">
+{% for msg in get_flashed_messages() %}
+<div>{{msg}}</div>
+{% endfor %}
+    <div class="form-column">
+        <p><label>Title:</label><input type="text" name="title" value="" required />
+        <p><label>Start date:</label><input type="date" name="start_date" value="" min="2023-01-01" max="2100-12-31" required />
+        <p><input type="submit" value="Save" />
+    </div>
+    <div class="form-column">
+        <p><img id="imagePreview" src="#" alt="Image preview" style="display: none;"/></p>
+        <p><input type="file" name="file" id="imageInput" onchange="previewImage()"/>
+    </div>
+    
+        
+</form>
+
+{% endblock %}
+
