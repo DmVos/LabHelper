@@ -12,6 +12,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 from DataBase import DataBase
 from Model import define_corrosion
+from Classification import image_classification
 from DataBase import DataBase
 from UserLogin import UserLogin
 from Forms import LoginForm
@@ -186,13 +187,13 @@ def addExperiment():
 
 @app.route("/experiment/<int:id_exp>")
 def showExperiment(id_exp):
-    title, start_date_unix = dbase.getExperiment(id_exp)
+    title, start_date_unix = dbase.getExperiment(id_exp) 
     
     start_date = datetime.fromtimestamp(start_date_unix).strftime('%d-%m-%Y')
     image = dbase.loadImage(id_exp)
     image_response, corroded_area_meters , corroded_area_cm2 = define_corrosion(image)
- 
-    return render_template('experiment.html', menu = dbase.getMenuForUser(), title = title, start_date = start_date, corroded_area_meters = round(corroded_area_meters, 4), corroded_area_cm2 = round(corroded_area_cm2, 2), image_response = image_response)
+    image_class = image_classification(image)
+    return render_template('experiment.html', menu = dbase.getMenuForUser(), title = title, start_date = start_date, corroded_area_meters = round(corroded_area_meters, 4), corroded_area_cm2 = round(corroded_area_cm2, 2), image_response = image_response, image_class = image_class)
 
 
 #@app.route('/experiment_image/<int:id_exp>')
