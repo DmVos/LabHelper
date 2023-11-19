@@ -38,11 +38,10 @@ class DataBase:
         #    print ("Ошибка чтения из БД")
         return []
     
-    def addExreriment(self, title, start_date, img):
+    def addExreriment(self, title, unix_timestamp, user, img):
         try:
-            tm = math.floor(time.time())
             binary = sqlite3.Binary(img)
-            self.__cur.execute("INSERT INTO experiments VALUES(NULL, ?, ?, ?, ?)", (title, tm, 0, binary))
+            self.__cur.execute("INSERT INTO experiments VALUES(NULL, ?, ?, ?, ?)", (title, unix_timestamp, user, binary))
             self.__db.commit()
         except sqlite3.Error as e:
             print("Ошибка добавления эксперимента в БД " + str(e))
@@ -62,7 +61,18 @@ class DataBase:
     
     def getAllExperiments(self):
         try:
-            self.__cur.execute(f"SELECT id, title, start_date FROM experiments ORDER BY id DESC")
+            self.__cur.execute(f"SELECT exp.id, exp.title, exp.start_date, u.name FROM experiments exp LEFT JOIN users u ON u.id=exp.user ORDER BY exp.id DESC")
+            res = self.__cur.fetchall()
+            if res:
+                return res
+        except sqlite3.Error as e:
+            print("Ошибка получения экспериментов в БД " + str(e))
+            
+        return []
+    
+    def getUserExperiments(self,user_id):
+        try:
+            self.__cur.execute("SELECT exp.id, exp.title, exp.start_date, u.name FROM experiments exp LEFT JOIN users u ON u.id=exp.user WHERE exp.user=? ORDER BY exp.id DESC",(user_id,))
             res = self.__cur.fetchall()
             if res:
                 return res

@@ -81,7 +81,7 @@ def index():
 @app.route("/login", methods=["POST","GET"])
 def login():
     if current_user.is_authenticated:
-        return redirect(url_for('profile'))
+        return redirect(url_for('my_experiments'))
     
     form = LoginForm()
     if form.validate_on_submit():
@@ -125,14 +125,35 @@ def profile():
                 <p>user info {current_user.get_id()}"""
 
 
-@app.route("/my_experiments/<username>")
-def my_experiments(username):
-    return render_template('my_experiments.html', title = "My experiments", menu = dbase.getMenuForUser())
+@app.route("/my_experiments")
+def my_experiments():
+    user={current_user.get_id()}
+    formatted_experiments = []
+    if isinstance(user, set) and len(user) == 1:
+        user = next(iter(user))
+    experiments = dbase.getUserExperiments(user)
+    #convert start_data to '%d-%m-%Y'
+    for exp in experiments:
+        exp_dict = dict(exp)
+        exp_dict['start_date'] = datetime.fromtimestamp(exp_dict['start_date']).strftime('%d-%m-%Y')
+        formatted_experiments.append(exp_dict)
+    
+    return render_template('my_experiments.html', title = "My experiments", menu = dbase.getMenuForUser(), experiments=formatted_experiments)
 
 
 @app.route("/all_experiments")
 def all_experiments():
-    return render_template('all_experiments.html', title = "All experiments", menu = dbase.getMenuForUser(), experiments = dbase.getAllExperiments())
+    experiments = dbase.getAllExperiments()
+    formatted_experiments = []
+    
+    #convert start_data to '%d-%m-%Y'
+    for exp in experiments:
+        exp_dict = dict(exp)
+        exp_dict['start_date'] = datetime.fromtimestamp(exp_dict['start_date']).strftime('%d-%m-%Y')
+        formatted_experiments.append(exp_dict)
+
+
+    return render_template('all_experiments.html', title = "All experiments", menu = dbase.getMenuForUser(), experiments = formatted_experiments)
 
 @app.route("/add_experiment", methods=["POST","GET"])
 @login_required
@@ -140,9 +161,21 @@ def addExperiment():
     if request.method == "POST":
         print(request.form['title'])
         if len(request.form['title']) > 1:
+            # read file
             file = request.files['file']
             img = file.read()
-            exp = dbase.addExreriment(request.form['title'], request.form['start_date'], img)
+
+            # define user
+            user = {current_user.get_id()}
+            if isinstance(user, set) and len(user) == 1:
+                user = next(iter(user))
+
+            # convert time
+            start_data = request.form['start_date']
+            date_object = datetime.strptime(start_data, '%Y-%m-%d')
+            unix_timestamp = int(date_object.timestamp())
+            
+            exp = dbase.addExreriment(request.form['title'], unix_timestamp, user, img)
             if not exp:
                 flash('Ошибка сохранения')
             else:
