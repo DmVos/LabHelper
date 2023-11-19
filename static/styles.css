@@ -1,14 +1,14 @@
-/*Фон основного окна*/
+/* Фон основного окна */
 body {
   font-family: 'Agbalumo', sans-serif;
   margin: 0;
   padding: 0;
-  /* background-color: #C5BAA9; Updated background color */
-  color: #435768;
+  background-color: #F1EBD8; /*Updated background color */
+  color: #222B1B;
   background-image: url("lab.png"); /* Replace 'path/to/your/image.jpg' with the actual path to your image file */
   background-size: cover; /* Ensures the background image covers the entire viewport */
-  background-position: center; /* Centers the background image*/
-  background-repeat: no-repeat;
+  background-position: center; /* Centers the background image */
+  background-repeat: no-repeat; 
 }
 
 /* Полоска меню */
@@ -17,7 +17,7 @@ body {
   margin: 0; /* Updated margin */
   padding: 3;
   overflow: hidden;
-  background-color: #686C33; /* Updated background color */
+  background-color: #222B1B/* Updated background color */
 }
 
 /* Обертка основного контента */
@@ -28,21 +28,30 @@ body {
 
 /* Стиль заголовка */
 header {
-  background-color: #ecece5;
-  padding: 10px;
-  border-radius: 8px;
+  background-color: #F1EBD8;
+  padding: 2px;
+  border-radius: 30px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  margin-bottom: 130px;
+  width: 40%;
+  margin: 70px auto;
+  border: 2px solid #787D46;
+}
+
+/* Цвет заголовка */
+h1 {
+  color: #7D4E25;
+  text-align: center;
+  padding: 2px;
 }
 
 /* Основной контент */
-.main-content { 
-  background-color: #ecece5;
+ .main-content { 
+  background-color: #F1EBD8;
   margin: 30px auto;
   padding:30px;
-  border-radius: 8px;
+  border-radius: 20px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  
+  border: 1px solid #787D46;
 }
 
 /* Стиль списка основных особенностей */
@@ -55,38 +64,30 @@ header {
 
 /* Стиль ссылок в списке особенностей */
 .feature-list li {
-  color: #435768;
+  color: #7D4E25;
   padding: 8px;
 }
 
 /* При наведении на ссылки */
 .feature-list li:hover {
-  color: #519dcf;
+  color: #787D46;
 }
 
-
-/* Цвет заголовка */
-h1 {
-  color: #686C33;
-  text-align: center;
-  padding: 10px;
-}
 
 /* Цвет заголовков абзацев */
 h2 {
-  color: #435768;
+  color: #787D46;;
   }
 
 /* Обертка стилей */
 .styled-div {
-  background-color: #ffffff;
+  background-color: #F1EBD8;
   margin: 20px auto;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   width: 80%; /* Or any other width as per your requirement */
 }
-
 
 .ul_index_page_style {
   list-style-type: disc;
@@ -101,7 +102,7 @@ ul li {
 
 ul li a {
   display: block;
-  color: #0C151C;
+  color: #f5f7f8;
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
