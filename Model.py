@@ -6,10 +6,8 @@ from PIL import Image
 import base64
 
 
-def define_corrosion(image_input):
-    # Image
- #   img_path = r"C:\Users\U_M1H0K\Desktop\app\data_set\cross_val_7\train\7\I69_Steel_mill-finish_Zinc-Rich_MIL-DTL-53022_MIL-DTL-53039.jpg"
-    #image = cv2.imread(img_path)
+def define_corrosion(image_input, sample_size_h, sample_size_w):
+
     image = cv2.cvtColor(np.array(image_input), cv2.COLOR_RGB2BGR)
     # Convert to HSV color space
     hsv_image = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
@@ -78,21 +76,21 @@ def define_corrosion(image_input):
     plt.figure(figsize=(15, 5))
 
     plt.subplot(1, 3, 1)
-    plt.imshow(cv2.cvtColor(image, cv2.COLOR_BGR2RGB), extent=[0, 100, 100, 0])
+    plt.imshow(cv2.cvtColor(image, cv2.COLOR_BGR2RGB), extent=[0, sample_size_h, sample_size_w, 0])
     plt.title('Original Image')
 
     plt.subplot(1, 3, 2)
-    plt.imshow(corroded_mask, extent=[0, 100, 100, 0])  # Set extent to control axis limits
+    plt.imshow(corroded_mask, extent=[0, sample_size_h, sample_size_w, 0])  # Set extent to control axis limits
     plt.title('Corroded Mask')
 
     plt.subplot(1, 3, 3)
-    plt.imshow(cv2.cvtColor(result_image, cv2.COLOR_BGR2RGB), extent=[0, 100, 100, 0])
+    plt.imshow(cv2.cvtColor(result_image, cv2.COLOR_BGR2RGB), extent=[0, sample_size_h, sample_size_w, 0])
     plt.title('Result with Corroded Outline')
 
     corroded_area_pixels = cv2.countNonZero(mask)
 
     # Define the total area in square meters
-    total_area_meters = 1.0  # Assuming the total area is 1 square meter
+    total_area_meters = (sample_size_h*sample_size_w)/10000  # calculate corrosion area from input values
 
     # Calculate the area per pixel
     area_per_pixel = total_area_meters / (512 * 512)
@@ -101,21 +99,16 @@ def define_corrosion(image_input):
     corroded_area_meters = area_per_pixel * corroded_area_pixels
     corroded_area_cm2 = corroded_area_meters * 10000
 
-    #print("Corroded Area (in square meters):", corroded_area_meters)
-    #print("Corroded Area (in square centimeters):", corroded_area_cm2)
-
+    # Add image to buffer
     buf = io.BytesIO()
     plt.savefig(buf, format='png')
     buf.seek(0)
 
-    # Преобразование изображения в строку base64
+    # Safe image for result
     image = base64.b64encode(buf.getvalue()).decode('utf-8')
 
+    # Close buffer
     buf.close()
 
     return image, corroded_area_meters, corroded_area_cm2
-
-
-#test = r"C:\Users\U_M1H0K\Desktop\app\data_set\cross_val_7\train\7\I69_Steel_mill-finish_Zinc-Rich_MIL-DTL-53022_MIL-DTL-53039.jpg"
-#print (define_corrosion(test))
 

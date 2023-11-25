@@ -1,27 +1,32 @@
 {% extends 'base.html' %}
-
 {% block content %}
 {{ super() }}
-<hr>
-<h2>All experiments</h2>
-<table>
-    <thead>
-        <tr>
-            <th>Title</th>
-            <th>Start Date</th>
-            <th>Name</th>
-            <th>Details</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for exp in experiments %}
-        <tr>
-            <td>{{ exp.title }}</td>
-            <td>{{ exp.start_date }}</td>
-            <td>{{ exp.name }}</td>
-            <td><a href="{{ url_for('showExperiment', id_exp=exp.id) }}">View Details</a></td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+
+<div class="styled-div">
+    <h2>All experiments</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Start date</th>
+                <th>Sample size (hxw, cm)</th>
+                <th>Name</th>
+                <th>Comment</th>
+                <th>Details</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for exp in experiments %}
+            <tr>
+                <td>{{ exp.title }}</td>
+                <td>{{ exp.start_date }}</td>
+                <td>{{ exp.sample_size_h }} x {{ exp.sample_size_w }}</td>
+                <td>{{ exp.name }}</td>
+                <td>{{ exp.comment }}</td>
+                <td><a href="{{ url_for('showExperiment', id_exp=exp.id) }}">View Details</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
 {% endblock %}

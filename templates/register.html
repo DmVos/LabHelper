@@ -6,12 +6,13 @@
 <div>{{msg}}</div>
 {% endfor %}
 
-
-<form action="/register" method="post">
-    <p><label>Username:</label><input type="text" name="username" value="" required />
-    <p><label>Userlogin:</label><input type="text" name="userlogin" value="" required />
-    <p><label>Password:</label><input type="password" name="psw1" value="" required />
-    <p><label>Confirm password:</label><input type="password" name="psw2" value="" required />
-    <p><input type="submit" value="Sign up" />
-</form>
+<div class="login-form">
+    <form action="/register" method="post">
+        <p><label><b>Username:</b></label><input type="text" name="username" value="" required />
+        <p><label><b>Userlogin:</b></label><input type="text" name="userlogin" value="" required />
+        <p><label><b>Password:</b></label><input type="password" name="psw1" value="" required />
+        <p><label><b>Confirm password:</b></label><input type="password" name="psw2" value="" required />
+        <p><input type="submit" value="Sign up" />
+    </form>
+</div>
 {% endblock %}

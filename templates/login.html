@@ -3,16 +3,17 @@
 {% block content %}
 {{ super() }}
 <div class="login-form">
-    {% for msg in get_flashed_messages(True) %}
-    <div class="flash-message">{{ msg }}</div>
+    
+    {% for cat, msg in get_flashed_messages(True) %}
+    <div class="flash {{cat}}">{{msg}}</div>
     {% endfor %}
-
+    
     <form action="/login" method="post">
         {{ form.hidden_tag() }}
 
         {% for field in form if field.name not in ['csrf_token', 'remember', 'submit'] %}
             <div>
-                {{ field.label() }} 
+                <b>{{ field.label() }} </b>
                 {% if field.errors %}
                     {{ field(class="invalid") }}
                     <span class="error-message">
@@ -27,7 +28,7 @@
         {% endfor %}
 
         <div>
-            <label>{{ form.remember.label()}}</label>
+            <label><b>{{ form.remember.label()}}</b></label>
             {{ form.remember() }}
             <p>*If you've forgotten your username or password, please contact the helpdesk</p>
         </div>

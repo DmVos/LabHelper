@@ -12,76 +12,69 @@ class DataBase:
         self.__db = db
         self.__cur = db.cursor()
     
-    #Получение всего списка меню
+    # Get list for main menu
     def getMenu(self):
         sql = '''SELECT * FROM mainmenu WHERE title in ('Home', 'Login') ORDER BY sq'''
-
-        #try:
         self.__cur.execute(sql)
         res = self.__cur.fetchall()
         if res:
             return res
-        #except:
-        #    print ("Ошибка чтения из БД")
         return []
     
-    #Получение меню для авторизованных пользователей
+    # Get menu for loggined users
     def getMenuForUser(self):
         sql = '''SELECT * FROM mainmenu WHERE title in ('Home', 'My experiments', 'All experiments', 'Add experiment', 'Logout') ORDER BY sq'''
-
-        #try:
         self.__cur.execute(sql)
         res = self.__cur.fetchall()
         if res:
             return res
-        #except:
-        #    print ("Ошибка чтения из БД")
         return []
     
-    def addExreriment(self, title, unix_timestamp, user, img):
+    # Add new experiment to DB
+    def addExreriment(self, title, unix_timestamp, user, img, sample_size_h, sample_size_w, comment):
         try:
             binary = sqlite3.Binary(img)
-            self.__cur.execute("INSERT INTO experiments VALUES(NULL, ?, ?, ?, ?)", (title, unix_timestamp, user, binary))
+            self.__cur.execute("INSERT INTO experiments VALUES(NULL, ?, ?, ?, ?, ?, ?, ?)", (title, unix_timestamp, user, binary, sample_size_h, sample_size_w, comment))
             self.__db.commit()
         except sqlite3.Error as e:
-            print("Ошибка добавления эксперимента в БД " + str(e))
+            print("Error adding experiment to database " + str(e))
             return False
         return True
 
+    # Get experiment from DB
     def getExperiment(self, exp_id):
         try:
-            self.__cur.execute(f"SELECT title, start_date FROM experiments WHERE id={exp_id} LIMIT 1")
+            self.__cur.execute(f"SELECT title, start_date, sample_size_h, sample_size_w, comment FROM experiments WHERE id={exp_id} LIMIT 1")
             res = self.__cur.fetchone()
             if res:
                 return res
         except sqlite3.Error as e:
-            print("Ошибка получения эксперимента в БД " + str(e))
-            
+            print("Error getting experiment from database " + str(e))           
         return (False, False)
     
+    # Get all experiments from DB
     def getAllExperiments(self):
         try:
-            self.__cur.execute(f"SELECT exp.id, exp.title, exp.start_date, u.name FROM experiments exp LEFT JOIN users u ON u.id=exp.user ORDER BY exp.id DESC")
+            self.__cur.execute(f"SELECT exp.id, exp.title, exp.start_date, exp.sample_size_h, exp.sample_size_w, exp.comment, u.name FROM experiments exp LEFT JOIN users u ON u.id=exp.user ORDER BY exp.id DESC")
             res = self.__cur.fetchall()
             if res:
                 return res
         except sqlite3.Error as e:
-            print("Ошибка получения экспериментов в БД " + str(e))
-            
+            print("Error getting experiments from database " + str(e))
         return []
     
+    # Get user's experiments from DB
     def getUserExperiments(self,user_id):
         try:
-            self.__cur.execute("SELECT exp.id, exp.title, exp.start_date, u.name FROM experiments exp LEFT JOIN users u ON u.id=exp.user WHERE exp.user=? ORDER BY exp.id DESC",(user_id,))
+            self.__cur.execute("SELECT exp.id, exp.title, exp.start_date, exp.sample_size_h,  exp.sample_size_w, exp.comment, u.name FROM experiments exp LEFT JOIN users u ON u.id=exp.user WHERE exp.user=? ORDER BY exp.id DESC",(user_id,))
             res = self.__cur.fetchall()
             if res:
                 return res
         except sqlite3.Error as e:
-            print("Ошибка получения экспериментов в БД " + str(e))
-            
+            print("Error getting experiments from database " + str(e))
         return []
     
-    # Функция для загрузки изображения из базы данных SQLite
+    # Get image from DB
     def loadImage (self, exp_id):
         try:
             self.__cur.execute("SELECT image FROM experiments WHERE id=?", (exp_id,))
@@ -91,12 +84,11 @@ class DataBase:
                 image_stream.seek(0)
                 image = Image.open(image_stream)
                 return image
-
         except sqlite3.Error as e:
-            print("Ошибка получения изображения из БД " + str(e))        
+            print("Error getting image from database " + str(e))        
         return None
     
-    # Функция для регистрации пользователя
+    # Register new user
     def addUser (self, username, userlogin, hpsw):
         try:
             self.__cur.execute(f"SELECT count() as 'count' FROM users WHERE login like '%{userlogin}%'")
@@ -104,42 +96,40 @@ class DataBase:
             if res['count'] > 0:
                 print ('A user with the same username already exists in the database.')
                 return False
-            
             tm = math.floor(time.time())
             self.__cur.execute(f"INSERT INTO users VALUES (NULL, ?, ?, ?, ?)", (username, userlogin, hpsw, tm))
             self.__db.commit()
         except sqlite3.Error as e:
-            print("Ошибка добавления пользователя" + str(e))    
+            print("Error adding user to database " + str(e))    
             return False     
         return True
     
 
-    # Функция для получения пользователя
+    # Get user info
     def getUser(self, user_id):
         try:
             self.__cur.execute(f"SELECT * FROM users WHERE id = {user_id} LIMIT 1")
             res = self.__cur.fetchone()
             if not res:
-                print ('Пользователь не найден в БД.')
+                print ("The user was not found in the database.")
                 return False
-            
             return res
         except sqlite3.Error as e:
-            print("Ошибка получения пользователя из БД" + str(e))    
+            print("Error getting user from database." + str(e))    
             return False     
         
-    # Функция для получения пользователя по логину
+    # Get user by login
     def getUserByLogin(self, userlogin):
         try:
             self.__cur.execute(f"SELECT * FROM users WHERE login = '{userlogin}' LIMIT 1")
             res = self.__cur.fetchone()
             if not res:
-                print ('Пользователь не найден в БД.')
+                print ('The user was not found in the database.')
                 return False
             
             return res
         except sqlite3.Error as e:
-            print("Ошибка получения пользователя из БД" + str(e))    
+            print("Error getting user from database." + str(e))    
             return False     
         
 

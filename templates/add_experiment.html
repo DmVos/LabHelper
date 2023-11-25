@@ -1,8 +1,6 @@
 {% extends 'base.html'%}
-
 {% block content %}
 {{ super() }}
-
 
 <script>
     function previewImage() {
@@ -24,23 +22,41 @@
     }
 </script>
 
+{% for cat, msg in get_flashed_messages(True) %}
+<div class="flash {{cat}}">{{msg}}</div>
+{% endfor %}
 
 <form class="form_for_adding_experiment" action="{{url_for('addExperiment')}}" method="post" enctype="multipart/form-data">
-{% for msg in get_flashed_messages() %}
-<div>{{msg}}</div>
-{% endfor %}
-    <div class="form-column">
-        <p><label>Title:</label><input type="text" name="title" value="" required />
-        <p><label>Start date:</label><input type="date" name="start_date" value="" min="2023-01-01" max="2100-12-31" required />
-        <p><input type="submit" value="Save" />
-    </div>
-    <div class="form-column">
+
+<table class="table_add_experiment">
+    <tr>
+      <td align="left" vertical-align="top" height="570px">
+        <p><label><b>Title:</b></label><input type="text" name="title" value="" required /></p>
+        <p><label><b>Start date:</b></label><input type="date" name="start_date" min="2023-01-01" max="2100-12-31" required /></p>
+        <p><label><b>Sample size (height, cm):</b></label><input type="number" value="20" name="sample_size_h" value="" min="0" max="100" step="1" required /></p>
+        <p><label><b>Sample size (width, cm):</b></label><input type="number" value="20" name="sample_size_w" value="" min="0" max="100" step="1" required /></p>
+        <p><label><b>Comment:</b></label><input type="text" name="comment" value="" /></p>
+      </td>
+      <td align="center" vertical-align="top" height="570px">
         <p><img id="imagePreview" src="#" alt="Image preview" style="display: none;"/></p>
-        <p><input type="file" name="file" id="imageInput" onchange="previewImage()"/>
-    </div>
-    
-        
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+      </td>
+      <td align="center">
+        <p>
+            <label for="imageInput" class="custom-file-input">
+                Choose File
+            </label>
+            <input type="file" name="file" id="imageInput" onchange="previewImage()" style="display: none;" required>
+        </p>
+      </td>
+    </tr>
+</table>
 </form>
 
 {% endblock %}
-

@@ -19,4 +19,4 @@ class UserLogin():
         return str(self.__user['id'])
     
     def getName(self):
-        return self.__user['name'] if self.__user else 'без имени'
+        return self.__user['name'] if self.__user else 'No name'

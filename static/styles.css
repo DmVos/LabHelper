@@ -1,99 +1,28 @@
-/* Фон основного окна */
+/* Main background */
 body {
   font-family: 'Agbalumo', sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #F1EBD8; /*Updated background color */
+  background-color: #F1EBD8; 
   color: #222B1B;
-  background-image: url("lab.png"); /* Replace 'path/to/your/image.jpg' with the actual path to your image file */
-  background-size: cover; /* Ensures the background image covers the entire viewport */
-  background-position: center; /* Centers the background image */
+  background-image: url("lab.png"); 
+  background-size: cover; 
+  background-position: center; 
   background-repeat: no-repeat; 
 }
 
-/* Полоска меню */
+
+/* Menu style */
 .ul_menu_style {
   list-style-type: none;
-  margin: 0; /* Updated margin */
+  margin: 0; 
   padding: 3;
   overflow: hidden;
-  background-color: #222B1B/* Updated background color */
+  background-color: #222B1B
 }
-
-/* Обертка основного контента */
-.container {
-  margin: 80px auto;
-  width: 60%;
-}
-
-/* Стиль заголовка */
-header {
-  background-color: #F1EBD8;
-  padding: 2px;
-  border-radius: 30px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  width: 40%;
-  margin: 70px auto;
-  border: 2px solid #787D46;
-}
-
-/* Цвет заголовка */
-h1 {
-  color: #7D4E25;
-  text-align: center;
-  padding: 2px;
-}
-
-/* Основной контент */
- .main-content { 
-  background-color: #F1EBD8;
-  margin: 30px auto;
-  padding:30px;
-  border-radius: 20px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  border: 1px solid #787D46;
-}
-
-/* Стиль списка основных особенностей */
-.feature-list {
-  list-style-type: disc;
-  margin: 10px;  /* Updated margin  */
-  /* padding: 20px; */
-  overflow: hidden;
-}
-
-/* Стиль ссылок в списке особенностей */
-.feature-list li {
-  color: #7D4E25;
-  padding: 8px;
-}
-
-/* При наведении на ссылки */
-.feature-list li:hover {
-  color: #787D46;
-}
-
-
-/* Цвет заголовков абзацев */
-h2 {
-  color: #787D46;;
-  }
-
-/* Обертка стилей */
-.styled-div {
-  background-color: #F1EBD8;
-  margin: 20px auto;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  width: 80%; /* Or any other width as per your requirement */
-}
-
-.ul_index_page_style {
-  list-style-type: disc;
-  margin: 200;
-  padding: 20;
-  overflow: hidden;
+ 
+ul li a:hover {
+  background-color: #787D46;
 }
 
 ul li { 
@@ -109,29 +38,93 @@ ul li a {
   font-weight: bold;
 }
 
-/* Цвет фона, когда навели на кнопку меню */
-ul li a:hover {
-  background-color: #16354D;
+
+/* Main container */
+.container {
+  margin: 80px auto;
+  width: 60%;
 }
 
-/* Title Styling */
+
+/* Header style */
+header {
+  background-color: #F1EBD8;
+  padding: 2px;
+  border-radius: 30px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 40%;
+  margin: 70px auto;
+  border: 2px solid #787D46;
+}
+
+
+/* H1 color */
 h1 {
-  color: #0C151C;
+  color: #7D4E25;
   text-align: center;
-  padding: 10px;
+  padding: 2px;
 }
 
+
+/* Main content */
+ .main-content { 
+  background-color: #F1EBD8;
+  margin: 30px auto;
+  padding:30px;
+  border-radius: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border: 1px solid #787D46;
+}
+
+
+/* Main features style */
+.feature-list {
+  list-style-type: disc;
+  margin: 10px;  
+  overflow: hidden;
+}
+
+
+/* Main features link style */
+.feature-list li {
+  color: #7D4E25;
+  padding: 8px;
+}
+
+
+/* Main features link style hover */
+.feature-list li:hover {
+  color: #787D46;
+}
+
+
+/* Main page list's style */
+.ul_index_page_style {
+  list-style-type: disc;
+  margin: 200;
+  padding: 20;
+  overflow: hidden;
+}
+
+
+/* H2 color */
+h2 {
+  color: #787D46;;
+  }
+
+
+/* Div style */
 .styled-div {
   background-color: #ffffff;
   margin: 100px auto;
   padding: 30px;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  width: 80%; /* Or any other width as per your requirement */
+  width: 80%; 
 }
 
 
-
+/* Login form style */
 form {
   background-color: #ffffff;
   margin: 100px auto;
@@ -141,6 +134,7 @@ form {
   width: 40%;
 }
 
+/* Add experement form style */
 .form_for_adding_experiment{
   background-color: #ffffff;
   margin: 100px auto;
@@ -148,6 +142,7 @@ form {
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   width: 80%;
+  height: 650px;
   display: flex;
   justify-content: space-between; /* Распределение пространства между столбцами */
 }
@@ -156,26 +151,51 @@ form {
 .form-column {
   flex: 1; /* Каждый столбец занимает равное пространство */
   margin-right: 20px; /* Отступ между столбцами */
+  border-right: 1px dotted #787D46;
+  padding-right: 10px;
 }
 
 .form-column:last-child {
-  margin-right: 0; /* Убираем отступ для последнего столбца */
+  border-right: none;
+  text-align: center;
 }
 
 
-/* Стиль для поля ввода  */
-input[type="text"], input[type="password"] {
+.table_add_experiment {
+  width: 100%;
+  height: 100%;
+  table-layout: fixed;
+}
+
+.table_add_experiment td {
+  width: 50%;
+  padding: 5px 10px;
+  box-sizing: border-box;
+  vertical-align: top;
+}
+
+.table_add_experiment td:first-child {
+  border-right: 1px dotted #787D46; 
+}
+
+
+/* Input field's style  */
+input[type="text"], 
+input[type="password"],  
+input[type="date"],
+input[type="number"]
+{
   width: 95%;
   padding: 10px;
   margin: 20px 0;
   border: 1px solid #ddd;
   border-radius: 4px;
-  
 }
 
+
 input[type="submit"] {
-  background-color: #6B99C3;
-  color: 333;
+  background-color: #222B1B;
+  color: #ddd;
   padding: 10px 20px;
   border: none;
   border-radius: 4px;
@@ -184,14 +204,84 @@ input[type="submit"] {
 }
 
 input[type="submit"]:hover {
-  background-color: #6B99C3;
+  background-color: #787D46;
 }
 
-.invalid {
-  border-color: #ff0000;
+/* Input button style */
+.custom-file-input {
+  display: inline-block;
+  padding: 6px 12px;
+  cursor: pointer;
+  font-size: 14px;
+  line-height: 1.42857143;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  user-select: none;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  color: #555;
+  background-color: #fff;
+  border-color: #ccc;
+  position: relative;
+  overflow: hidden;
 }
 
-.error-message {
-  color: #ff0000;
-  font-size: 0.9em;
+/* Input file style */
+.custom-file-input input[type="file"] {
+    position: absolute;
+    font-size: 100px;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    cursor: pointer;
+}
+
+/* Flash style */
+.flash {padding: 10px;}
+.flash.success {
+	border: 1px solid #21DB56;
+	background: #AEFFC5;
+}
+
+.flash.error {
+	border: 1px solid #FF4343;
+	background: #FF9C9C;
+}
+
+
+/* Main table style */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.table th, .table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.table th {
+  background-color: #f2f2f2;
+}
+
+.table tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.table tbody tr:hover {
+  background-color: #d9d9d9;
+}
+
+.table a {
+  text-decoration: none;
+  color: #007bff;
+}
+
+.table a:hover {
+  text-decoration: underline;
 }
