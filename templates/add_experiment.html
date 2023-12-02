@@ -4,22 +4,22 @@
 
 <script>
     function previewImage() {
-        var preview = document.getElementById('imagePreview');
-        var file    = document.getElementById('imageInput').files[0];
-        var reader  = new FileReader();
-    
-        reader.onloadend = function () {
-            preview.src = reader.result;
-            preview.style.display = 'block';
-        }
-    
-        if (file) {
-            reader.readAsDataURL(file);
-        } else {
-            preview.src = "";
-            preview.style.display = 'none';
-        }
+    var preview = document.getElementById('imagePreview');
+    var file    = document.getElementById('imageInput').files[0];
+    var reader  = new FileReader();
+
+    reader.onloadend = function () {
+        preview.src = reader.result;
+        preview.style.display = 'block';
     }
+
+    if (file) {
+        reader.readAsDataURL(file);
+    } else {
+        preview.src = "";
+        preview.style.display = 'none';
+    }
+  }
 </script>
 
 {% for cat, msg in get_flashed_messages(True) %}
@@ -52,7 +52,7 @@
             <label for="imageInput" class="custom-file-input">
                 Choose File
             </label>
-            <input type="file" name="file" id="imageInput" onchange="previewImage()" style="display: none;" required>
+            <input type="file" name="file" id="imageInput" onchange="previewImage()" style="display: none;">
         </p>
       </td>
     </tr>

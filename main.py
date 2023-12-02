@@ -3,6 +3,8 @@ from datetime import datetime
 from flask import Flask, render_template, url_for, request, flash, session, redirect, abort, g, make_response
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
+from PIL import Image
+from io import BytesIO
 
 
 from DataBase import DataBase
@@ -152,9 +154,32 @@ def addExperiment():
     if request.method == "POST":
         print(request.form['title'])
         if len(request.form['title']) > 1:
-            # read file
+            if 'file' not in request.files:
+                flash('No file part', 'error')
+                return render_template('add_experiment.html', title="Add Experiment", menu=dbase.getMenuForUser())
+            
+            # read file 
             file = request.files['file']
+            if file.filename == '':
+                flash('No selected file', 'error')
+                return render_template('add_experiment.html', title="Add Experiment", menu=dbase.getMenuForUser())
+
             img = file.read()
+            try:
+                img = Image.open(file)
+                if img.width != img.height:
+                    flash('The image must be square', 'error')
+                    return render_template('add_experiment.html', title="Add Experiment", menu=dbase.getMenuForUser())
+
+                img = img.resize((512, 512), Image.ANTIALIAS)
+                
+                # Conversion back to binary data
+                img_byte_arr = BytesIO()
+                img.save(img_byte_arr, format='PNG')
+                img = img_byte_arr.getvalue()
+            except IOError:
+                flash('Can\'t resize image.', 'error')
+                return render_template('add_experiment.html', title="Add Experiment", menu=dbase.getMenuForUser())
 
             # define user
             user = {current_user.get_id()}
@@ -184,7 +209,10 @@ def showExperiment(id_exp):
     image = dbase.loadImage(id_exp)
     image_response, corroded_area_meters , corroded_area_cm2 = define_corrosion(image, sample_size_h, sample_size_w)
     image_class = image_classification(image)
-    return render_template('experiment.html', menu = dbase.getMenuForUser(), title = title, start_date = start_date, corroded_area_meters = round(corroded_area_meters, 4), corroded_area_cm2 = round(corroded_area_cm2, 2), image_response = image_response, image_class = image_class, sample_size_h = sample_size_h, sample_size_w = sample_size_w, comment = comment)
+    return render_template('experiment.html', menu = dbase.getMenuForUser(), title = title, start_date = start_date, 
+                           corroded_area_meters = round(corroded_area_meters, 4), corroded_area_cm2 = round(corroded_area_cm2, 2), 
+                           image_response = image_response, image_class = image_class, sample_size_h = sample_size_h, 
+                           sample_size_w = sample_size_w, comment = comment)
 
 
 @app.errorhandler(404)
