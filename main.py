@@ -207,8 +207,8 @@ def showExperiment(id_exp):
     
     start_date = datetime.fromtimestamp(start_date_unix).strftime('%d-%m-%Y')
     image = dbase.loadImage(id_exp)
-    image_response, corroded_area_meters , corroded_area_cm2 = define_corrosion(image, sample_size_h, sample_size_w)
     image_class = image_classification(image)
+    image_response, corroded_area_meters , corroded_area_cm2 = define_corrosion(image, sample_size_h, sample_size_w)
     return render_template('experiment.html', menu = dbase.getMenuForUser(), title = title, start_date = start_date, 
                            corroded_area_meters = round(corroded_area_meters, 4), corroded_area_cm2 = round(corroded_area_cm2, 2), 
                            image_response = image_response, image_class = image_class, sample_size_h = sample_size_h, 
