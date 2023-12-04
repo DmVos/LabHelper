@@ -90,14 +90,14 @@ def define_corrosion(image_input, sample_size_h, sample_size_w):
     corroded_area_pixels = cv2.countNonZero(mask)
 
     # Define the total area in square meters
-    total_area_meters = (sample_size_h*sample_size_w)/10000  # calculate corrosion area from input values
+    total_area_meters = (sample_size_h*sample_size_w)/1000000  # calculate corrosion area from input values
 
     # Calculate the area per pixel
     area_per_pixel = total_area_meters / (512 * 512)
 
     # Calculate the corroded area in square meters
     corroded_area_meters = area_per_pixel * corroded_area_pixels
-    corroded_area_cm2 = corroded_area_meters * 10000
+    corroded_area_mm2 = corroded_area_meters * 1000000
 
     # Add image to buffer
     buf = io.BytesIO()
@@ -110,5 +110,5 @@ def define_corrosion(image_input, sample_size_h, sample_size_w):
     # Close buffer
     buf.close()
 
-    return image, corroded_area_meters, corroded_area_cm2
+    return image, corroded_area_meters, corroded_area_mm2
 
