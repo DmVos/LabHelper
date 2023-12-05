@@ -15,7 +15,7 @@
     </tr>
     <tr>
         <td>Comment: <b>{{ comment }}</b></td>
-        <td>Corrosion class: <b>{{image_class}}</b></td>
+        <td {% if alarm %} style="color: red; text-decoration: underline;" {% endif %}> Corrosion class: <b>{{image_class}}</b></td>
     </tr>
 </table>
 
