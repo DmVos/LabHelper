@@ -1,0 +1,65 @@
+@prefix ind: <URN:inds:>.
+@prefix prop: <URN:prop:>.
+@prefix classes: <URN:class>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix owl: <http://www.w3.org/2002/07/owl#>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+
+
+ind:SubProcesses a owl:Class;
+		owl:oneOf ind:A1, ind:A2, ind:A3, ind:A4, ind:A5, ind:A6.
+
+ind:KPIs a owl:Class;
+		owl:oneOf ind:S1, ind:S2, ind:S3, ind:S4.
+
+ind:Resources a owl:Class;
+		owl:oneOf ind:R1, ind:R2, ind:R3, ind:R4, ind:R5.
+
+ind:IOs a owl:Class;
+		owl:oneOf ind:input1, ind:output1, ind:output2, ind:output3, ind:output4, ind:output5, ind:output6, ind:output2reverse, ind:output5reverse.
+
+
+classes:KPI a owl:Class.
+classes:Resource a owl:Class.
+classes:IO a owl:Class.
+classes:Quality a owl:Class.
+
+[] a owl:AllDisjointClasses;
+		owl:members classes:KPI, classes:Resource, classes:IO, classes:Quality.
+
+
+prop:hasSubProcess a owl:ObjectProperty;
+		a owl:AsymmetricProperty.
+
+prop:hasResource a owl:ObjectProperty;
+		a owl:AsymmetricProperty.
+
+prop:hasIO a owl:ObjectProperty;
+		a owl:AsymmetricProperty.
+
+prop:hasKPI a owl:ObjectProperty;
+		a owl:AsymmetricProperty.
+
+prop:hasResource a owl:ObjectProperty;
+		a owl:AsymmetricProperty.
+
+prop:hasQuality a owl:ObjectProperty;
+		a owl:AsymmetricProperty.		
+
+
+prop:hasSubProcess a owl:ObjectProperty;
+		a owl:IrreflexiveProperty.
+
+
+
+
+
+
+
+
+
+
+
+
+
+

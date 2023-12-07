@@ -2,43 +2,6 @@
 @prefix prop:<URN:prop:>.
 @prefix classes:<URN:class>.
 @prefix rdfs:<http://www.w3.org/2000/01/rdf-schema#>.
-@prefix owl:<http://www.w3.org/2002/07/owl#>.
-@prefix rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
-
-
-ind:A0 a classes:Process;
-		rdfs:label "Calculation of corrosion area and determining class of corrosion by photo";
-		rdf:isDefinedBy	"Team2";
-		prop:hasIO ind:input1;
-		prop:hasIO ind:output1;
-		prop:hasIO ind:output2;
-		prop:hasKPI ind:S1;
-		prop:hasKPI ind:S2;
-		prop:hasKPI ind:S3;
-		prop:hasKPI ind:S4;
-		prop:hasResource ind:R1;
-		prop:hasResource ind:R2;
-		prop:hasResource ind:R3;
-		prop:hasResource ind:R4;
-		prop:hasResource ind:R5;
-		prop:hasSubProcess ind:A1;
-		prop:hasSubProcess ind:A2;
-		prop:hasSubProcess ind:A3;
-		prop:hasSubProcess ind:A4;
-		prop:hasSubProcess ind:A5;
-		prop:hasSubProcess ind:A6;
-		prop:hasSubProcess ind:A7.
-
-ind:A1 prop:SubProcess ind:A0;
-		rdfs:label "Data preparation";
-		prop:hasIO ind:input1;
-		prop:hasKPI ind:S1;
-		prop:hasIO ind:output3.
-
-@prefix ind:<URN:inds:>.
-@prefix prop:<URN:prop:>.
-@prefix classes:<URN:class>.
-@prefix rdfs:<http://www.w3.org/2000/01/rdf-schema#>.
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 
@@ -63,11 +26,10 @@ ind:A0 a classes:Process;
 		prop:hasSubProcess ind:A3;
 		prop:hasSubProcess ind:A4;
 		prop:hasSubProcess ind:A5;
-		prop:hasSubProcess ind:A6;
-		prop:hasSubProcess ind:A7.
+		prop:hasSubProcess ind:A6.
 
 ind:A1 prop:SubProcess ind:A0;
-		rdfs:label "Data preparation";
+		rdfs:label "Image preparation";
 		prop:hasIO ind:input1;
 		prop:hasKPI ind:S1;
 		prop:hasIO ind:output3.
@@ -85,7 +47,7 @@ ind:A2 prop:SubProcess ind:A0;
 ind:A3 prop:SubProcess ind:A0;
 		rdfs:label "Classification model training";
 		prop:hasIO ind:output4;
-		prop:hasIO ind:output6;
+		prop:hasIO ind:output2reverse;
 		prop:hasKPI ind:S4;
 		prop:hasResource ind:R1;
 		prop:hasIO ind:output5.
@@ -95,34 +57,35 @@ ind:A4 prop:SubProcess ind:A0;
 		prop:hasIO ind:output5;
 		prop:hasKPI ind:S4;
 		prop:hasResource ind:R2;
-		prop:hasIO ind:output6.
+		prop:hasIO ind:output2.
 
 ind:A5 prop:SubProcess ind:A0;
 		rdfs:label "Corroded area definition";
-		prop:hasIO ind:output5;
+		prop:hasIO ind:output3;
 		prop:hasResource ind:R4;
-		prop:hasIO ind:output7.
+		prop:hasIO ind:output6.
 
 ind:A6 prop:SubProcess ind:A0;
 		rdfs:label "Calculation of corrosion area";
-		prop:hasIO ind:output7;
+		prop:hasIO ind:output6;
 		prop:hasResource ind:R5;
-		prop:hasIO ind:output8.
-
-ind:A7 prop:SubProcess ind:A0;
-		rdfs:label "Result preparation";
-		prop:hasIO ind:output8;
-		prop:hasIO ind:output1;
-		prop:hasIO ind:output2.
+		prop:hasIO ind:output1.
 
 ind:input1 a classes:IO;
 		rdfs:label "Image".
 
+ind:output1 a classes:IO;
+		rdfs:label "Area of corrosion";
+		prop:hasUnits "mm2".
+
 ind:output2 a classes:IO;
-		rdfs:label "Class of corrosion".
+		rdfs:label "Class of corrosion".	
+
+ind:output2reverse a classes:IO;
+		rdfs:label "Model training".	
 
 ind:output3 a classes:IO;
-		rdfs:label "Prepared dataset".
+		rdfs:label "Prepared image".
 
 ind:output4 a classes:IO;
 		rdfs:label "Created model".
@@ -134,32 +97,19 @@ ind:output5reverse a classes:IO;
 		rdfs:label "Model Adjustment".
 
 ind:output6 a classes:IO;
-		rdfs:label "Image".
-
-ind:output6reverse a classes:IO;
-		rdfs:label "Model training".
-
-ind:input6forward a classes:IO;
-		rdfs:label "Class of corrosion".
-		
-ind:output7 a classes:IO;
 		rdfs:label "Image with contoured corrosion area".
 
-ind:output8 a classes:IO;
-		rdfs:label "Area of corrosion";
-		prop:hasUnits "mm2".
-
 ind:S1 a classes:KPI;
-		rdfs:label "Relevant Sample";
+		rdfs:label "Relevant sample";
 		prop:hasQuality ind:Appropriate.
 
 ind:S2 a classes:KPI;
-		rdfs:label "Optimal Number of Epochs";
+		rdfs:label "Optimal number of epochs";
 		prop:hasQuality ind:Epochs.	
 
 ind:S3 a classes:KPI;
 		rdfs:label "Batch size";
-		prop:hasQuality ind:Pieces.	
+		prop:hasNum ind:Number.	
 					
 ind:S4 a classes:KPI;
 		rdfs:label "Accuracy of Determining class of corrosion";
@@ -175,18 +125,16 @@ ind:R3 a classes:Resource;
 		rdfs:label "CNN Logic".
 
 ind:R4 a classes:Resource;
-		rdfs:label "CV Logic".
+		rdfs:label "Computer vision algorithms".
 		
 ind:R5 a classes:Resource;
 		rdfs:label "Method for defining area of irregular shapes".
 
 ind:Appropriate a classes:Quality;
-		prop:causes ind:Cancellation;
 		prop:hasSquare "0";
 		prop:hasNotSquare "1".
 
 ind:Epochs a classes:Quality;		
-		prop:causes ind:Оptimal;
 		prop:hasMin "8";
 		prop:hasOptimal "20";
 		prop:hasMax "60".
@@ -194,8 +142,5 @@ ind:Epochs a classes:Quality;
 ind:Accuracy a classes:Quality;
 		prop:hasMin "0.7".
 
-ind:Pieces a classes:Quality;
+ind:Number a classes:Quality;
 		prop:hasOptimal "32".
-
-
-
